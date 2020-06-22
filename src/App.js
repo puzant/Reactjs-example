@@ -47,6 +47,23 @@ class App extends Component {
      this.setState({counters})
    }
 
+   handleSave = () => {
+     localStorage.setItem('counters-value', JSON.stringify(this.state.counters))
+   }
+
+   isValuesSaved() {
+    const counters = localStorage.getItem('counters-value')
+    let parsedCounters
+    if(counters) {
+       parsedCounters = JSON.parse(counters)
+      this.setState({ counters: parsedCounters })
+    }
+   }
+
+   componentDidMount() {
+     this.isValuesSaved()
+   }
+
   render() {
     return (
       <div className="app-container">
@@ -57,7 +74,8 @@ class App extends Component {
             onReset={this.handleReset} 
             onIncrement={this.handleIncrement}
             onDecrement={this.handleDecrement} 
-            onDelete={this.handleDelete} 
+            onDelete={this.handleDelete}
+            onSave={this.handleSave}
           />
         </main>
       </div>
