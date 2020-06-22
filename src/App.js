@@ -11,7 +11,9 @@ class App extends Component {
       { id: 2, value: 0 },
       { id: 3, value: 0 },
       { id: 4, value: 0 },
-    ]
+    ],
+    addedToLocalStorage: false,
+    removedFromLocalStorage: false
    }
 
    constructor(props) {
@@ -49,6 +51,15 @@ class App extends Component {
 
    handleSave = () => {
      localStorage.setItem('counters-value', JSON.stringify(this.state.counters))
+     this.setState({ addedToLocalStorage: true })
+   }
+
+   handleClearStorage = () => {
+     if(localStorage.getItem('counters-value')) {
+      localStorage.removeItem('counters-value')
+      this.state.removedFromLocalStorage = true
+      this.setState({ counters: this.state.counters })
+     }
    }
 
    isValuesSaved() {
@@ -68,6 +79,8 @@ class App extends Component {
     return (
       <div className="app-container">
         <Navbar totalCounters={this.state.counters.filter(c => c.value > 0).length} />
+        { this.state.addedToLocalStorage && <div className="alert alert-success">Added to localStorage</div> }
+        { this.state.removedFromLocalStorage && <div className="alert alert-danger">Removed from localStorage</div> }
         <main className="main-container">
           <Counters 
             counters={this.state.counters}
@@ -76,6 +89,7 @@ class App extends Component {
             onDecrement={this.handleDecrement} 
             onDelete={this.handleDelete}
             onSave={this.handleSave}
+            onClear={this.handleClearStorage}
           />
         </main>
       </div>
