@@ -71,6 +71,15 @@ class App extends Component {
     }
    }
 
+   handleGeneratingRandomValues = () => {
+     let counters = [...this.state.counters]
+     counters = this.state.counters.map(c => {
+       c.value = Math.floor(Math.random()*10);
+       return c
+     })
+     this.setState({counters})
+   }
+
    componentDidMount() {
      this.isValuesSaved()
    }
@@ -90,6 +99,7 @@ class App extends Component {
             onDelete={this.handleDelete}
             onSave={this.handleSave}
             onClear={this.handleClearStorage}
+            onGenerateRandomValues={this.handleGeneratingRandomValues}
           />
         </main>
       </div>
