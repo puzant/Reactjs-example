@@ -93,21 +93,23 @@ class App extends Component {
    }
 
   render() {
+    const { addedToLocalStorage, removedFromLocalStorage } = this.state
     return (
       <div className="app-container">
         <Navbar totalCounters={this.state.counters.filter(c => c.value > 0).length} />
-        { this.state.addedToLocalStorage && <div className="alert alert-success">Added to localStorage</div> }
-        { this.state.removedFromLocalStorage && <div className="alert alert-danger">Removed from localStorage</div> }
+        { addedToLocalStorage && <div className="alert alert-success">Added to localStorage</div> }
+        { removedFromLocalStorage && <div className="alert alert-danger">Removed from localStorage</div> }
         <main className="main-container">
           <Counters 
             counters={this.state.counters}
             onReset={this.handleReset} 
-            onIncrement={this.handleIncrement}
-            onDecrement={this.handleDecrement} 
-            onDelete={this.handleDelete}
+            onIncrement={(counter) => this.handleIncrement(counter)}
+            onDecrement={(counter) => this.handleDecrement(counter)}
+            onDelete={(counter) => this.handleDelete(counter)}
             onSave={this.handleSave}
             onClear={this.handleClearStorage}
             onGenerateRandomValues={this.handleGeneratingRandomValues}
+            onGenerateSingleValue={this.handleGeneratingSingleValue}
           />
         </main>
       </div>
