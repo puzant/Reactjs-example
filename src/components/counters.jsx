@@ -3,7 +3,7 @@ import Counter from '../components/counter'
 
 class Counters extends Component {
   render() { 
-    const {onReset, onDecrement, onIncrement, onDelete, onSave, onClear, onGenerateRandomValues, counters} = this.props
+    const {onReset, onDecrement, onIncrement, onDelete, onSave, onClear, onGenerateRandomValues, onGenerateSingleValue, counters} = this.props
     return ( 
       <div>
         <button onClick={onReset} className="btn btn-primary btn-sm m-2">Reset All</button>
@@ -16,7 +16,9 @@ class Counters extends Component {
             onIncrement={onIncrement} 
             onDecrement={onDecrement} 
             key={counter.id} 
-            counter={counter}>
+            counter={counter}
+            onGenerateSingleValue={onGenerateSingleValue}
+          >
               <h4>Counter #{counter.id}</h4>
           </Counter>
         )) }
