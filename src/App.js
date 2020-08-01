@@ -36,6 +36,14 @@ class App extends Component {
     this.setState({counters})
    }
 
+   handleGeneratingSingleValue = counter => {
+    const counters = [...this.state.counters]
+    const index = counters.indexOf(counter)
+    counters[index] = {...counter}
+    counters[index].value = Math.floor(Math.random()*10)
+    this.setState({counters})
+  }
+
    handleReset = () => {
      const counters = this.state.counters.map(c => {
        c.value = 0;
